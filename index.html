@@ -24,6 +24,12 @@
             <h3>{{"Truth is this now" | truth : "is" : "have been"}}</h3>
         </div>
     </div>
+    <hr>
+
+    <div ng-controller="digestController">
+        <button ng-click="add()">Increment Counter</button>
+        <h5>Counter Value: {{counterValue}}</h5>
+    </div>
 
 <!-- Scripts go below -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

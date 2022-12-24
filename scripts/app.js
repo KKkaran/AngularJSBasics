@@ -3,10 +3,23 @@
     let app = angular.module("ngApp", []);
     app
         .controller("squareController", SquareController)
+        .controller("digestController",digestController)
         .filter("upperCase", upperCaseFilterFactory)
         .filter("squareNumber", squareNumberFactory)
-        .filter("truth",truthFactory)
-    app.$inject = ["$scope","$filter","upperCaseFilter"]
+        .filter("truth", truthFactory)
+    
+    app.$inject = ["$scope", "$filter", "upperCaseFilter", "$timeout"]
+    
+    function digestController($scope,$timeout) {
+        $scope.counterValue = 0;
+        $scope.add = function () {
+            //console.log(++$scope.counterValue);
+            $timeout(() => {
+                console.log(++$scope.counterValue)
+                // $scope.$digest()
+            }, 3000);
+        }
+    }
     function SquareController($scope, $filter, upperCaseFilter, squareNumberFilter) {
         $scope.number = 0
         $scope.name = ""
