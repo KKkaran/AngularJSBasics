@@ -4,7 +4,8 @@
     app
         .controller("squareController", SquareController)
         .filter("upperCase", upperCaseFilterFactory)
-        .filter("squareNumber",squareNumberFactory)
+        .filter("squareNumber", squareNumberFactory)
+        .filter("truth",truthFactory)
     app.$inject = ["$scope","$filter","upperCaseFilter"]
     function SquareController($scope, $filter, upperCaseFilter, squareNumberFilter) {
         $scope.number = 0
@@ -16,6 +17,13 @@
     function squareNumberFactory() {
         return function (input) {
             return Math.pow(input, 2);
+        }
+    }
+    function truthFactory() {
+        return function (input, target, replace) {
+            input = input || "";
+            input = input.replace(target, replace);
+            return input;
         }
     }
     function upperCaseFilterFactory($filter) {

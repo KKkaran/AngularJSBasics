@@ -18,9 +18,10 @@
             <input type="number" placeholder="Let's square the num" ng-model="number">
             <input type="text" placeholder="name" ng-model="name" ng-keyup="changeName()">
 
-            
+
             <h3>{{number | squareNumber}}</h3>
             <h3>{{name | upperCase}}  </h3>
+            <h3>{{"Truth is this now" | truth : "is" : "have been"}}</h3>
         </div>
     </div>
 
