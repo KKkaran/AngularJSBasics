@@ -28,7 +28,11 @@
 
     <div ng-controller="digestController">
         <button ng-click="add()">Increment Counter</button>
+        <button ng-click="show()">Watchers Count</button>
         <h5>Counter Value: {{counterValue}}</h5>
+        <input type="text" ng-model="lname">
+        {{::lname}}
+        {{lname}}
     </div>
 
 <!-- Scripts go below -->

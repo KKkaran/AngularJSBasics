@@ -9,15 +9,19 @@
         .filter("truth", truthFactory)
     
     app.$inject = ["$scope", "$filter", "upperCaseFilter", "$timeout"]
-    
+
     function digestController($scope,$timeout) {
         $scope.counterValue = 0;
+        //$scope.lname = "Last name"
         $scope.add = function () {
             //console.log(++$scope.counterValue);
             $timeout(() => {
                 console.log(++$scope.counterValue)
                 // $scope.$digest()
             }, 3000);
+        }
+        $scope.show = function () {
+            console.log($scope.$$watchersCount)
         }
     }
     function SquareController($scope, $filter, upperCaseFilter, squareNumberFilter) {
@@ -43,5 +47,5 @@
         return function (input) {
             return $filter("uppercase")(input);
         }
-    }
+    } 
 })()
