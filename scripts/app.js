@@ -4,23 +4,41 @@
     app
         .controller("shoppingListAddController", ShoppingListAddController)
         .controller("shoppingListShowController", ShoppingListShowController)
+        .service("ShoppingListService",ShoppingListService)
     
     app.$inject = ["$scope", "$timeout"]
+    ShoppingListAddController.$inject = ['ShoppingListService'];
+    ShoppingListShowController.$inject = ['ShoppingListService'];
+    function ShoppingListService(){
+        let service = this;
+        let items = []
 
-    function ShoppingListAddController($scope) {
+        service.addItem = function(itemName,quantity){
+            let item = {
+                item: itemName,
+                quantity: quantity
+            }
+            items.push(item);
+        }
+        service.getItems = function(){
+            return items;
+        }
+        //method to remove the item from the array
+    }
+    function ShoppingListAddController(ShoppingListService) {
         let slac = this;
         slac.item = ""
         slac.quantity = 0;
-        slac.list = [];
+
         slac.addItem = function(){
-           //slac.item && console.log(slac.item + " " + slac.quantity)
-           slac.list.push({item:slac.item,quant:slac.quantity})
-           console.log(slac.list)
+            slac.item && ShoppingListService.addItem(slac.item,slac.quantity)
         }
     }
-    function ShoppingListShowController($scope) {
+    function ShoppingListShowController(ShoppingListService) {
         let slsc = this;
-        slsc.name = ["karan","singh","sodhi"];
+        slsc.list = ShoppingListService.getItems()
+
+        //method to remove the item from Service
     }
     
 })()

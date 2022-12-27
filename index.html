@@ -21,7 +21,8 @@
         <div ng-controller='shoppingListShowController as slsc'>
             <div>
                 <ul>
-                    <li ng-repeat="item in slac.list">{{item.item}} {{item.quant}} </li>
+                    <li ng-repeat="item in slsc.list">{{$index + 1}}. {{item.item}} {{item.quantity}}
+                        <!--add button to remove this item--> </li>
                 </ul>
             </div>
         </div>
