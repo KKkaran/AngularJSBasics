@@ -3,12 +3,39 @@
     let app = angular.module("ngApp", []);
     app
         .controller("squareController", SquareController)
-        .controller("digestController",digestController)
+        .controller("digestController", digestController)
+        .controller("eatController", eatController)
         .filter("upperCase", upperCaseFilterFactory)
         .filter("squareNumber", squareNumberFactory)
         .filter("truth", truthFactory)
     
     app.$inject = ["$scope", "$filter", "upperCaseFilter", "$timeout"]
+
+    let desserts = ["Jalebi", "IceCream", "Gulabjamun", "Bhatisa", "Rasgulla", "Milkcake"];
+    let catering = [
+        {
+            quantity: 2,
+            name: "Shahi Paneer"
+        },
+        {
+            quantity: 4,
+            name: "Dal Makhni"
+        },
+        {
+            quantity: 3,
+            name: "Palak Paneer"
+        },
+        {
+            quantity: 2,
+            name: "Chicken Tikka"
+        }
+    ]
+    function eatController($scope) {
+        $scope.desserts = desserts;
+        $scope.catering = catering;
+    }
+
+
 
     function digestController($scope,$timeout) {
         $scope.counterValue = 0;
