@@ -11,48 +11,24 @@
     <script src="./scripts/app.js"></script>
     <title>Custom Filter</title>
 </head>
-<body ng-app="ngApp">
-    <h1>Custom Filter</h1>
-    <div ng-controller="squareController">
-        <div class="p-2">
-            <input type="number" placeholder="Let's square the num" ng-model="number">
-            <input type="text" placeholder="name" ng-model="name" ng-keyup="changeName()">
+<body ng-app="ngApp" class="p-1">
 
-
-            <h3>{{number | squareNumber}}</h3>
-            <h3>{{name | upperCase}}  </h3>
-            <h3>{{"Truth is this now" | truth : "is" : "have been"}}</h3>
-        </div>
-    </div>
-    <hr>
-
-    <div ng-controller="digestController">
-        <button ng-click="add()">Increment Counter</button>
-        <button ng-click="show()">Watchers Count</button>
-        <h5>Counter Value: {{counterValue}}</h5>
-        <input type="text" ng-model="lname">
-        {{::lname}}
-        {{lname}}
-    </div>
-
-    <hr>
-
-    <div ng-controller="eatController">
-        <input type="text" ng-model="sweet" placeholder="sweet">
-        <ul>
-            <li ng-repeat="i in desserts | filter : sweet">{{i}}</li>
-        </ul>
-    </div>
-    <hr>
-    <div class="border border-dark p-2">
-        <h3>Scope Inheritance</h3>
-        <div ng-controller="parentController as parent">
-            <h4>Parent Parent Value: {{parent.value}}</h4>
-            <div ng-controller="childController as child">
-                <h4>Children Parent Value: {{child.value}}</h4>
+    <div ng-controller = "shoppingListAddController as slac" class="p-2 border border-dark">
+        <input type="text" required placeholder="item" ng-model="slac.item">
+        <input type="number" required placeholder="quantity" ng-model="slac.quantity">
+        <button ng-click="slac.addItem()">Add Item</button>
+        
+        <div ng-controller='shoppingListShowController as slsc'>
+            <div>
+                <ul>
+                    <li ng-repeat="item in slac.list">{{item.item}} {{item.quant}} </li>
+                </ul>
             </div>
         </div>
     </div>
+
+</body>
+    
 <!-- Scripts go below -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
