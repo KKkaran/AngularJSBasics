@@ -5,6 +5,8 @@
         .controller("squareController", SquareController)
         .controller("digestController", digestController)
         .controller("eatController", eatController)
+        .controller("parentController",parentController)
+        .controller("childController",childController)
         .filter("upperCase", upperCaseFilterFactory)
         .filter("squareNumber", squareNumberFactory)
         .filter("truth", truthFactory)
@@ -34,9 +36,6 @@
         $scope.desserts = desserts;
         $scope.catering = catering;
     }
-
-
-
     function digestController($scope,$timeout) {
         $scope.counterValue = 0;
         //$scope.lname = "Last name"
@@ -75,4 +74,22 @@
             return $filter("uppercase")(input);
         }
     } 
+    function parentController($scope){
+        // $scope.parentValue = 99
+        // $scope.pc = this;
+        // $scope.pc.parentValue = 7;
+        let parent = this;
+        parent.value = 70;
+    }
+    function childController($scope){
+        let child = this;
+        child.value = 140;
+        // $scope.pc = this
+        // $scope.parentValue = 11
+        // console.log($scope.$parent.pc.parentValue)
+        // $scope.pc.parentValue = 123;
+        // console.log('$scope.parentValue is : ' + $scope.parentValue)
+        // console.log($scope)
+        // console.log($scope.$parent.pc.parentValue)
+    }
 })()

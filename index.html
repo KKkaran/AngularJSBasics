@@ -43,6 +43,16 @@
             <li ng-repeat="i in desserts | filter : sweet">{{i}}</li>
         </ul>
     </div>
+    <hr>
+    <div class="border border-dark p-2">
+        <h3>Scope Inheritance</h3>
+        <div ng-controller="parentController as parent">
+            <h4>Parent Parent Value: {{parent.value}}</h4>
+            <div ng-controller="childController as child">
+                <h4>Children Parent Value: {{child.value}}</h4>
+            </div>
+        </div>
+    </div>
 <!-- Scripts go below -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
