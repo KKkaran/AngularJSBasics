@@ -5,7 +5,13 @@
      // .controller("Shoppinglist1", ShoppingList1)
       .controller("Shoppinglist2", ShoppingList2)
      // .factory("ShoppingListFactory", ShoppingListFactory);
-      .provider("ShoppingListService",ShoppingListServiceProvider);
+      .provider("ShoppingListService",ShoppingListServiceProvider)
+      .config(Config)
+      
+    Config.$inject = ['ShoppingListServiceProvider']
+    function Config(ShoppingListServiceProvider){
+        ShoppingListServiceProvider.defaults.maxItems = 3;
+    }
     //ShoppingList1.$inject = ["ShoppingListFactory"]
     ShoppingList2.$inject = ["ShoppingListService"]
     function ShoppingListServiceProvider(){
