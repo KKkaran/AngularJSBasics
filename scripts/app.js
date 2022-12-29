@@ -1,44 +1,65 @@
 (function(){
     "use strict";
-    let app = angular.module("ngApp", []);
-    app
-        .controller("shoppingListAddController", ShoppingListAddController)
-        .controller("shoppingListShowController", ShoppingListShowController)
-        .service("ShoppingListService",ShoppingListService)
     
-    app.$inject = ["$scope", "$timeout"]
-    ShoppingListAddController.$inject = ['ShoppingListService'];
-    ShoppingListShowController.$inject = ['ShoppingListService'];
-    function ShoppingListService(){
-        let service = this;
-        let items = []
+    let app = angular.module("ngApp",[]);
+    app 
+      .controller("Shoppinglist1", ShoppingList1)
+      .controller("Shoppinglist2", ShoppingList2)
+      .factory("ShoppingListFactory", ShoppingListFactory);
 
-        service.addItem = function(itemName,quantity){
-            let item = {
-                item: itemName,
-                quantity: quantity
+    ShoppingList1.$inject = ["ShoppingListFactory"]
+    ShoppingList2.$inject = ["ShoppingListFactory"]
+
+    function ShoppingListFactory(){
+        return function(maxItems){
+            return new ShoppingListService(maxItems);
+        }
+    }
+    function ShoppingListService(maxItems){
+        let service = this;
+        let items = [];
+
+        service.addItem = function(item,quantity){
+            if((maxItems == undefined) || (maxItems !== undefined) && (items.length < maxItems)){
+                items.push({
+                    item: item,
+                    quantity: quantity
+                })
+            }else{
+                throw new Error("Max items (" + maxItems + ") reached.")
             }
-            items.push(item);
         }
         service.getItems = function(){
             return items;
         }
-        //method to remove the item from the array
     }
-    function ShoppingListAddController(ShoppingListService) {
-        let slac = this;
-        slac.item = ""
-        slac.quantity = 0;
+    function ShoppingList1(ShoppingListFactory){
+        let sl1 = this;
+        let service = ShoppingListFactory();
 
-        slac.addItem = function(){
-            slac.item && ShoppingListService.addItem(slac.item,slac.quantity)
+        sl1.item = "";
+        sl1.quantity = "";
+        sl1.items = service.getItems();
+        
+        sl1.addItem = function(){
+            service.addItem(sl1.item,sl1.quantity)
         }
     }
-    function ShoppingListShowController(ShoppingListService) {
-        let slsc = this;
-        slsc.list = ShoppingListService.getItems()
+    function ShoppingList2(ShoppingListFactory){
+        let sl2 = this;
+        let service = ShoppingListFactory(2);
 
-        //method to remove the item from Service
+        sl2.item = "";
+        sl2.quantity = "";
+        sl2.items = service.getItems();
+        
+        sl2.addItem = function(){
+            try{
+                service.addItem(sl2.item,sl2.quantity)
+            }catch(error){
+                sl2.error = error.message
+            }
+            
+        }
     }
-    
 })()

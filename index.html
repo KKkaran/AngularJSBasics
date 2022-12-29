@@ -13,20 +13,42 @@
 </head>
 <body ng-app="ngApp" class="p-1">
 
-    <div ng-controller = "shoppingListAddController as slac" class="p-2 border border-dark">
-        <input type="text" required placeholder="item" ng-model="slac.item">
-        <input type="number" required placeholder="quantity" ng-model="slac.quantity">
-        <button ng-click="slac.addItem()">Add Item</button>
-        
-        <div ng-controller='shoppingListShowController as slsc'>
+    <div class="p-1 d-flex justify-content-between">
+        <div class="border border-dark p-2 m-1" ng-controller="Shoppinglist1 as sl1">
+            <h1>Shopping List #1</h1>
             <div>
-                <ul>
-                    <li ng-repeat="item in slsc.list">{{$index + 1}}. {{item.item}} {{item.quantity}}
-                        <!--add button to remove this item--> </li>
-                </ul>
+                <input type="text" placeholder="item" ng-model="sl1.item">
+                <input type="text" placeholder="quantity" ng-model="sl1.quantity">
+                <button ng-click="sl1.addItem()">Add Item</button>
+            </div>
+            <div>
+                <ol>
+                    <li ng-repeat="item in sl1.items">
+                        {{item.item}} ---> {{item.quantity}}
+                    </li>
+                </ol>
             </div>
         </div>
+        <div class="border border-dark p-2 m-1" ng-controller="Shoppinglist2 as sl2">
+            <h1>Shopping List #2</h1>
+            <div>
+                <input type="text" placeholder="item" ng-model="sl2.item">
+                <input type="text" placeholder="quantity" ng-model="sl2.quantity">
+                <button ng-click="sl2.addItem()">Add Item</button>
+            </div>
+            <div>
+                <ol>
+                    <li ng-repeat="item in sl2.items">
+                        {{item.item}} ---> {{item.quantity}}
+                    </li>
+                    <span>{{sl2.error}}</span>
+                </ol>
+            </div>
+        <div>
+
+        </div>
     </div>
+    
 
 </body>
     
