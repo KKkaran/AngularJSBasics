@@ -41,7 +41,20 @@
                     <li ng-repeat="item in sl2.items">
                         {{item.item}} ---> {{item.quantity}}
                     </li>
-                    <span>{{sl2.error}}</span>
+                    <div ng-hide="sl2.error">
+                        Error: <span>{{sl2.error}}</span>
+                    </div>
+<!-- 
+    ng-if is a general purpose "if statement" like attr dir if its value is false, angular removes the containing element from the DOM entirely
+    ng-show/ng-hide attr dir aut attach CSS classes to the containing element that either show or hide the element
+        The containing element doesnt get removed from the DOM
+
+
+
+
+
+                     -->
+                    
                 </ol>
             </div>
         <div>
