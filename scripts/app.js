@@ -3,28 +3,67 @@
     let app = angular.module("ngApp", [])
     app
       .controller("shoppingList1",shoppingList1)
-      .service("shoppingService",shoppingService)
-    app.$inject = ['shoppingService']
+      .service("shoppingService", shoppingService)
+      .service("asyncService",asyncService)
+    shoppingList1.$inject = ['shoppingService']
 
-    function shoppingService() {
+    
+    asyncService.$inject = ["$q","$timeout"]
+    function asyncService($q,$timeout) {
+        let service = this;
+        
+        service.checkName = function (item) {
+            let deferred = $q.defer();
+            let result = {
+                message:""
+            }
+            $timeout(function () {
+                if (item.toLowerCase().indexOf('cookie') === -1) {
+                    deferred.resolve(result)
+                } else {
+                    result.message = "Stay way from cookie"
+                    deferred.reject(result)
+                }
+            }, 2000)
+            return deferred.promise;
+        }
+        service.checkQuantity = function (quantity) {
+            let deferred = $q.defer();
+            let result = {
+                message:""
+            }
+            $timeout(function () {
+                if (parseInt(quantity) < 5) {
+                    deferred.resolve(result)
+                } else {
+                    result.message = "Too many entries"
+                    deferred.reject(result)
+                }
+            }, 1000)
+            return deferred.promise;
+        }
+    }
+    shoppingService.$inject = ["$q","asyncService"]
+    function shoppingService($q,asyncService) {
         let service = this;
         let items = []
         service.addItem = function(item,quantity) {
-            if (maxItems == undefined || (maxItems !== undefined && items.length < maxItems)) {
-                items.push({
-                    item: item,
-                    quantity: quantity
+            let promise = asyncService.checkName(item);
+            promise.then(function (response) {
+                let nextPromise = asyncService.checkQuantity(quantity)
+                nextPromise.then(function (result) {
+                    items.push({item,quantity})
+                }, function (error) {
+                    console.log(error.message)
                 })
-                console.log(items)
-            } else {
-                throw new Error("max item(s) " + maxItems + " reached.")
-            }
+            }, function (error) {
+                console.log(error.message)
+            })
         }
         service.getItems = function () {
             return items;
         }
     }
-    
     function shoppingList1(shoppingService) {
         let sl1 = this;
         sl1.item = "";
@@ -35,7 +74,9 @@
         sl1.addItem = function () {
             //shoppingFactory.addItem()
             sl1.item && sl1.quantity && function () {
-                shoppingService.addItem(sl1.item, sl1.quantity)
+                
+                    shoppingService.addItem(sl1.item, sl1.quantity)
+                
             }()
         }
     }

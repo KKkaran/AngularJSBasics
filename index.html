@@ -29,7 +29,7 @@
                 </ol>
             </div>
         </div> -->
-        <div class="border border-dark p-2 m-1" ng-controller="shoppinglist1 as sl1">
+        <div class="border border-dark p-2 m-1" ng-controller="shoppingList1 as sl1">
             <h1>Shopping List #1</h1>
             <div>
                 <input type="text" placeholder="item" ng-model="sl1.item">
@@ -44,6 +44,7 @@
                     <div ng-hide="!sl1.error">
                         Error: <span>{{sl1.error}}</span>
                     </div>
+                </ol>
 <!-- 
     ng-if is a general purpose "if statement" like attr dir if its value is false, angular removes the containing element from the DOM entirely
     ng-show/ng-hide attr dir aut attach CSS classes to the containing element that either show or hide the element
