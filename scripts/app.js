@@ -49,16 +49,16 @@
         let items = []
         service.addItem = function(item,quantity) {
             let promise = asyncService.checkName(item);
-            promise.then(function (response) {
-                let nextPromise = asyncService.checkQuantity(quantity)
-                nextPromise.then(function (result) {
-                    items.push({item,quantity})
-                }, function (error) {
+            promise
+                .then(function (response) {
+                    return asyncService.checkQuantity(quantity)
+                })
+                .then(function () {
+                    items.push({item,quantity})   
+                })
+                .catch(function (error) {
                     console.log(error.message)
                 })
-            }, function (error) {
-                console.log(error.message)
-            })
         }
         service.getItems = function () {
             return items;
