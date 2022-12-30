@@ -29,20 +29,20 @@
                 </ol>
             </div>
         </div> -->
-        <div class="border border-dark p-2 m-1" ng-controller="Shoppinglist2 as sl2">
-            <h1>Shopping List #2</h1>
+        <div class="border border-dark p-2 m-1" ng-controller="shoppinglist1 as sl1">
+            <h1>Shopping List #1</h1>
             <div>
-                <input type="text" placeholder="item" ng-model="sl2.item">
-                <input type="text" placeholder="quantity" ng-model="sl2.quantity">
-                <button ng-click="sl2.addItem()">Add Item</button>
+                <input type="text" placeholder="item" ng-model="sl1.item">
+                <input type="text" placeholder="quantity" ng-model="sl1.quantity">
+                <button ng-click="sl1.addItem()">Add Item</button>
             </div>
             <div>
                 <ol>
-                    <li ng-repeat="item in sl2.items">
+                    <li ng-repeat="item in sl1.items">
                         {{item.item}} ---> {{item.quantity}}
                     </li>
-                    <div ng-hide="sl2.error">
-                        Error: <span>{{sl2.error}}</span>
+                    <div ng-hide="!sl1.error">
+                        Error: <span>{{sl1.error}}</span>
                     </div>
 <!-- 
     ng-if is a general purpose "if statement" like attr dir if its value is false, angular removes the containing element from the DOM entirely
