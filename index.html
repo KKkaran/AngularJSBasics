@@ -10,57 +10,50 @@
     <script src="./scripts/angular-route.min.js"></script>
     <script src="./scripts/app.js"></script>
     <title>Custom Filter</title>
+    <style>
+        body{
+            background-color: chocolate;
+            color: white;
+        }
+    </style>
 </head>
 <body ng-app="ngApp" class="p-1">
 
-    <!-- <div class="p-1 d-flex justify-content-between">
-        <div class="border border-dark p-2 m-1" ng-controller="Shoppinglist1 as sl1">
-            <h1>Shopping List #1</h1>
-            <div>
-                <input type="text" placeholder="item" ng-model="sl1.item">
-                <input type="text" placeholder="quantity" ng-model="sl1.quantity">
-                <button ng-click="sl1.addItem()">Add Item</button>
+   <div class="d-flex justify-content-between">
+    <div class="p-2">
+        <form>
+            <div class="p-2" ng-controller="shoppingList1 as sl1">
+                <h2>List #1</h2>
+                <input type="text" ng-model="sl1.item" placeholder="item" ng-required="true"> <br> <br>
+                <input type="text" ng-model="sl1.quantity" placeholder="quantity" ng-required="true"><br> <br>
+                <button type="submit" ng-click="sl1.addItem()">Add Item</button>
+                <div>
+                    <h2>Items:</h2>
+                    <ol>
+                        <li ng-repeat="i in sl1.items">{{i.quantity}} of {{i.item}}</li>
+                    </ol>
+                </div>
             </div>
-            <div>
-                <ol>
-                    <li ng-repeat="item in sl1.items">
-                        {{item.item}} --- {{item.quantity}}
-                    </li>
-                </ol>
-            </div>
-        </div> -->
-        <div class="border border-dark p-2 m-1" ng-controller="Shoppinglist2 as sl2">
-            <h1>Shopping List #2</h1>
-            <div>
-                <input type="text" placeholder="item" ng-model="sl2.item">
-                <input type="text" placeholder="quantity" ng-model="sl2.quantity">
-                <button ng-click="sl2.addItem()">Add Item</button>
-            </div>
-            <div>
-                <ol>
-                    <li ng-repeat="item in sl2.items">
-                        {{item.item}} ---> {{item.quantity}}
-                    </li>
-                    <div ng-hide="sl2.error">
-                        Error: <span>{{sl2.error}}</span>
-                    </div>
-<!-- 
-    ng-if is a general purpose "if statement" like attr dir if its value is false, angular removes the containing element from the DOM entirely
-    ng-show/ng-hide attr dir aut attach CSS classes to the containing element that either show or hide the element
-        The containing element doesnt get removed from the DOM
-
-
-
-
-
-                     -->
-                    
-                </ol>
-            </div>
-        <div>
-        </div>
+        </form>
     </div>
-    
+    <div class="p-2">
+        <form>
+            <div class="p-2" ng-controller="shoppingList2 as sl2">
+                <h2>List #2</h2>
+                <input type="text" placeholder="item" ng-model="sl2.item"> <br> <br>
+                <input type="text" placeholder="quantity" ng-model="sl2.quantity"><br> <br>
+                <button type="submit" ng-click="sl2.addItem()">Add 3 Items</button>
+                <div>
+                    <h2>Items:</h2>
+                    <ol>
+                        <li ng-repeat="i in sl2.items">{{i.quantity}} of {{i.item}}</li>
+                    </ol>
+                    <p ng-hide="!sl2.error">Error: {{sl2.error}}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+   </div>
 
 </body>
     
