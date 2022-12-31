@@ -48,13 +48,24 @@
         let service = this;
         let items = []
         service.addItem = function(item,quantity) {
-            let promise = asyncService.checkName(item);
-            promise
-                .then(function (response) {
-                    return asyncService.checkQuantity(quantity)
-                })
+            // let promise = asyncService.checkName(item);
+            // promise
+            //     .then(function (response) {
+            //         return asyncService.checkQuantity(quantity)
+            //     })
+            //     .then(function () {
+            //         items.push({item,quantity})   
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error.message)
+            //     })
+            let namePromise = asyncService.checkName(item);
+            let quantityPromise = asyncService.checkQuantity(quantity);
+
+            $q
+                .all([namePromise, quantityPromise])
                 .then(function () {
-                    items.push({item,quantity})   
+                    items.push({item,quantity})
                 })
                 .catch(function (error) {
                     console.log(error.message)
