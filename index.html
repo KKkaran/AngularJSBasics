@@ -24,7 +24,7 @@
         <button ng-click="sl1.getFriends()">Get Friends</button>
         <div>
             <ol>
-                <li ng-repeat = "fr in sl1.friends">{{fr.name}} and met in {{fr.since}}</li>
+                <li ng-repeat = "fr in sl1.friends"><a href="" ng-click="sl1.getDetail(fr.name)">{{fr.name}}</a></li>
             </ol>
         </div>
     </div>

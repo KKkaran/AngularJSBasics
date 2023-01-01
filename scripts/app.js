@@ -17,12 +17,25 @@
                 url: "http://localhost:3000/friends"
             })
         }
+        service.getDetail = function (names) {
+            console.log('getting details')
+            return $http({
+                method: 'GET',
+                url: "http://localhost:3000/friends",
+                params: {
+                    name: names
+                }
+            })
+        }
     }
     shoppingService.$inject = ["asyncService"]
     function shoppingService(asyncService) {
         let service = this;
         service.getFriends = function() {
            return asyncService.getFriends()
+        }
+        service.getDetail = function(name) {
+           return asyncService.getDetail(name)
         }
     }
     function FriendsList(shoppingService) {
@@ -35,6 +48,14 @@
                 .then(function (res) {
                     sl1.friends = res.data
                     console.log(res.data)
+                })
+        }
+        sl1.getDetail = function (name) {
+            console.log(name)
+            shoppingService
+                .getDetail(name)
+                .then(function (res) {
+                    console.log(res.data[0].since)
                 })
         }
     }
