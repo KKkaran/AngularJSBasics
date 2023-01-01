@@ -1,0 +1,24 @@
+{
+    "friends" : [
+        {
+            "name": "Tim Hortons",
+            "since": "September 2015"
+        },
+        {   
+            "name": "Bob Saini",
+            "since": "January 2016"
+        },
+        {
+            "name": "Karan Nagi",
+            "since": "January 2006"
+        },
+        {
+            "name": "Popi" ,
+            "since": "Septemer 2018"
+        },
+        {
+            "name": "Sidhu",
+            "since": "June 2018"
+        }
+    ]
+}

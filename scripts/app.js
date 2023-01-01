@@ -2,52 +2,52 @@
     'use strict'
     let app = angular.module("ngApp", [])
     app
-      .controller("shoppingList1",shoppingList1)
+      .controller("FriendsList",FriendsList)
       .service("shoppingService", shoppingService)
       .service("asyncService",asyncService)
-    shoppingList1.$inject = ['shoppingService']
+    FriendsList.$inject = ['shoppingService']
 
     
-    asyncService.$inject = ["$q","$timeout"]
-    function asyncService($q,$timeout) {
+    asyncService.$inject = ["$q","$http"]
+    function asyncService($q,$http) {
         let service = this;
         
-        service.checkName = function (item) {
-            let deferred = $q.defer();
+        service.getFriends = function () {
             let result = {
                 message:""
             }
-            $timeout(function () {
-                if (item.toLowerCase().indexOf('cookie') === -1) {
-                    deferred.resolve(result)
-                } else {
-                    result.message = "Stay way from cookie"
-                    deferred.reject(result)
-                }
-            }, 2000)
-            return deferred.promise;
+            //the fetch request goes
+            let r = $http({
+                method: 'GET',
+                url: "http://localhost:3000/friends"
+            })
+            return r;
         }
-        service.checkQuantity = function (quantity) {
-            let deferred = $q.defer();
-            let result = {
-                message:""
-            }
-            $timeout(function () {
-                if (parseInt(quantity) < 5) {
-                    deferred.resolve(result)
-                } else {
-                    result.message = "Too many entries"
-                    deferred.reject(result)
-                }
-            }, 1000)
-            return deferred.promise;
-        }
+        // service.checkQuantity = function (quantity) {
+        //     let deferred = $q.defer();
+        //     let result = {
+        //         message:""
+        //     }
+        //     $timeout(function () {
+        //         if (parseInt(quantity) < 5) {
+        //             deferred.resolve(result)
+        //         } else {
+        //             result.message = "Too many entries"
+        //             deferred.reject(result)
+        //         }
+        //     }, 1000)
+        //     return deferred.promise;
+        // }
     }
     shoppingService.$inject = ["$q","asyncService"]
     function shoppingService($q,asyncService) {
         let service = this;
-        let items = []
-        service.addItem = function(item,quantity) {
+        let friends = []
+        service.addFriends = function () {
+            console.log(friends)
+            return friends;
+        }
+        service.getFriends = function() {
             // let promise = asyncService.checkName(item);
             // promise
             //     .then(function (response) {
@@ -59,36 +59,28 @@
             //     .catch(function (error) {
             //         console.log(error.message)
             //     })
-            let namePromise = asyncService.checkName(item);
-            let quantityPromise = asyncService.checkQuantity(quantity);
+            asyncService
+                .getFriends()
+                .then(function (res) {
+                    friends = res.data
+                    console.log(res.data)
+                    console.log(friends)
+                })
+            //let quantityPromise = asyncService.checkQuantity(quantity);
 
-            $q
-                .all([namePromise, quantityPromise])
-                .then(function () {
-                    items.push({item,quantity})
-                })
-                .catch(function (error) {
-                    console.log(error.message)
-                })
-        }
-        service.getItems = function () {
-            return items;
+           
         }
     }
-    function shoppingList1(shoppingService) {
+    function FriendsList(shoppingService) {
         let sl1 = this;
-        sl1.item = "";
-        sl1.quantity = "";
+       sl1.friends = []
 
-        sl1.items = shoppingService.getItems();
-
-        sl1.addItem = function () {
+        //sl1.items = shoppingService.getItems();
+        sl1.friends = shoppingService.addFriends();
+        sl1.getFriends = function () {
             //shoppingFactory.addItem()
-            sl1.item && sl1.quantity && function () {
-                
-                    shoppingService.addItem(sl1.item, sl1.quantity)
-                
-            }()
+            shoppingService.getFriends()
+            //console.log("getting Friends")
         }
     }
 })()
