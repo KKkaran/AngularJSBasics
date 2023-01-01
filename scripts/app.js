@@ -6,81 +6,36 @@
       .service("shoppingService", shoppingService)
       .service("asyncService",asyncService)
     FriendsList.$inject = ['shoppingService']
-
     
-    asyncService.$inject = ["$q","$http"]
-    function asyncService($q,$http) {
+    asyncService.$inject = ["$http"]
+    function asyncService($http) {
         let service = this;
-        
+        //the fetch request goes
         service.getFriends = function () {
-            let result = {
-                message:""
-            }
-            //the fetch request goes
-            let r = $http({
+            return $http({
                 method: 'GET',
                 url: "http://localhost:3000/friends"
             })
-            return r;
         }
-        // service.checkQuantity = function (quantity) {
-        //     let deferred = $q.defer();
-        //     let result = {
-        //         message:""
-        //     }
-        //     $timeout(function () {
-        //         if (parseInt(quantity) < 5) {
-        //             deferred.resolve(result)
-        //         } else {
-        //             result.message = "Too many entries"
-        //             deferred.reject(result)
-        //         }
-        //     }, 1000)
-        //     return deferred.promise;
-        // }
     }
-    shoppingService.$inject = ["$q","asyncService"]
-    function shoppingService($q,asyncService) {
+    shoppingService.$inject = ["asyncService"]
+    function shoppingService(asyncService) {
         let service = this;
-        let friends = []
-        service.addFriends = function () {
-            console.log(friends)
-            return friends;
-        }
         service.getFriends = function() {
-            // let promise = asyncService.checkName(item);
-            // promise
-            //     .then(function (response) {
-            //         return asyncService.checkQuantity(quantity)
-            //     })
-            //     .then(function () {
-            //         items.push({item,quantity})   
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error.message)
-            //     })
-            asyncService
-                .getFriends()
-                .then(function (res) {
-                    friends = res.data
-                    console.log(res.data)
-                    console.log(friends)
-                })
-            //let quantityPromise = asyncService.checkQuantity(quantity);
-
-           
+           return asyncService.getFriends()
         }
     }
     function FriendsList(shoppingService) {
         let sl1 = this;
-       sl1.friends = []
+        sl1.friends = []
 
-        //sl1.items = shoppingService.getItems();
-        sl1.friends = shoppingService.addFriends();
         sl1.getFriends = function () {
-            //shoppingFactory.addItem()
-            shoppingService.getFriends()
-            //console.log("getting Friends")
+            shoppingService
+                .getFriends()
+                .then(function (res) {
+                    sl1.friends = res.data
+                    console.log(res.data)
+                })
         }
     }
 })()

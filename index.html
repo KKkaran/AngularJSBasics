@@ -13,6 +13,7 @@
     <style>
         body{
             background-color: darkolivegreen;
+            color: white;
         }
     </style>
 </head>
@@ -23,7 +24,7 @@
         <button ng-click="sl1.getFriends()">Get Friends</button>
         <div>
             <ol>
-                <li ng-repeat = "fr in sl1.friends">{{fr}}</li>
+                <li ng-repeat = "fr in sl1.friends">{{fr.name}} and met in {{fr.since}}</li>
             </ol>
         </div>
     </div>
