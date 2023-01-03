@@ -5,10 +5,22 @@
     app 
       .controller("Shoppinglist1", ShoppingList1)
       .controller("Shoppinglist2", ShoppingList2)
-      .factory("ShoppingListFactory", ShoppingListFactory);
-
+      .factory("ShoppingListFactory", ShoppingListFactory)
+      .directive("listItemDescription", listItemDescription)
+      .directive("listItem", listItem)
+    
     ShoppingList1.$inject = ["ShoppingListFactory"]
     ShoppingList2.$inject = ["ShoppingListFactory"]
+    function listItem() {
+        return {
+            templateUrl: "listItem.html"
+        }
+    }
+    function listItemDescription() {
+        return {
+            template: "{{item.item}} ---> {{item.quantity}}"
+        }
+    }
 
     function ShoppingListFactory(){
         return function(maxItems){

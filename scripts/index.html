@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="./scripts/angular.min.js"></script>
-    <script src="./scripts/angular-route.min.js"></script>
-    <script src="./scripts/app.js"></script>
+    <script src="./angular.min.js"></script>
+    <script src="./angular-route.min.js"></script>
+    <script src="./app.js"></script>
     <title>Custom Filter</title>
 </head>
 <body ng-app="ngApp" class="p-1">
@@ -23,9 +23,7 @@
             </div>
             <div>
                 <ol>
-                    <li ng-repeat="item in sl1.items">
-                        {{item.item}} ---> {{item.quantity}}
-                    </li>
+                    <list-item ng-repeat="item in sl1.items"></list-item>
                 </ol>
             </div>
         </div>
@@ -38,9 +36,7 @@
             </div>
             <div>
                 <ol>
-                    <li ng-repeat="item in sl2.items">
-                        {{item.item}} ---> {{item.quantity}}
-                    </li>
+                    <list-item ng-repeat="item in sl2.items"></list-item>
                     <span>{{sl2.error}}</span>
                 </ol>
             </div>
