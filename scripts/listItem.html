@@ -1,3 +1,9 @@
-<li>
-    <list-item-description></list-item-description>
-</li>
+<div>
+    <h3>{{title}}</h3>
+    <ol>
+        <li ng-repeat="item in list.items">
+            {{item.item}} ---- {{item.quantity}}
+        </li>
+    </ol>
+
+</div>
