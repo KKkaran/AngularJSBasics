@@ -1,16 +1,15 @@
 (function(){
     "use strict";
-    
     let app = angular.module("ngApp",[]);
     app 
-      .controller("Shoppinglist1", ShoppingList1)
-      .controller("Shoppinglist2", ShoppingList2)
+      .controller("Shoppinglist1",ShoppingList1)
+      .controller("Shoppinglist2",ShoppingList2)
+      .controller("showName",showName)
       .factory("ShoppingListFactory", ShoppingListFactory)
       .directive("listItemDescription", listItemDescription)
       .directive("listItem", listItem)
-    
-    ShoppingList1.$inject = ["ShoppingListFactory"]
-    ShoppingList2.$inject = ["ShoppingListFactory"]
+    ShoppingList1.$inject=["ShoppingListFactory"]
+    ShoppingList2.$inject=["ShoppingListFactory"]
     function listItem() {
         return {
             templateUrl: "listItem.html",
@@ -27,7 +26,6 @@
             template: "{{item.item}} ---> {{item.quantity}}"
         }
     }
-
     function ShoppingListFactory(){
         return function(maxItems){
             return new ShoppingListService(maxItems);
@@ -81,5 +79,9 @@
             }
             
         }
+    }
+    function showName(){
+        let sn = this;
+        sn.checkbox = false;
     }
 })()
