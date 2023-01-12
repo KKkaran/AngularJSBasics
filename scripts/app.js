@@ -1,85 +1,63 @@
+
 (function(){
     "use strict";
     
     let app = angular.module("ngApp",[]);
-    app 
-      .controller("Shoppinglist1", ShoppingList1)
-      .controller("Shoppinglist2", ShoppingList2)
-      .factory("ShoppingListFactory", ShoppingListFactory)
-      .directive("listItemDescription", listItemDescription)
-      .directive("listItem", listItem)
-    
-    ShoppingList1.$inject = ["ShoppingListFactory"]
-    ShoppingList2.$inject = ["ShoppingListFactory"]
-    function listItem() {
-        return {
-            templateUrl: "listItem.html",
-            scope: {
-                valthruat: "@",
-                valthruequal: "=",
-                list: '=myList',
-                title:"@titles"
-            }
-        }
-    }
-    function listItemDescription() {
-        return {
-            template: "{{item.item}} ---> {{item.quantity}}"
-        }
-    }
-
-    function ShoppingListFactory(){
-        return function(maxItems){
-            return new ShoppingListService(maxItems);
-        }
-    }
-    function ShoppingListService(maxItems){
-        let service = this;
-        let items = [];
-
-        service.addItem = function(item,quantity){
-            if((maxItems == undefined) || (maxItems !== undefined) && (items.length < maxItems)){
-                items.push({
-                    item: item,
-                    quantity: quantity
-                })
-            }else{
-                throw new Error("Max items (" + maxItems + ") reached.")
-            }
-        }
-        service.getItems = function(){
-            return items;
-        }
-    }
-    function ShoppingList1(ShoppingListFactory){
-        let sl1 = this;
-        let service = ShoppingListFactory();
-        sl1.valthruat = "value through @"
-        sl1.valthruequal = "value through ="
-        sl1.title = "Shooping List #1"
-        sl1.item = "";
-        sl1.quantity = "";
-        sl1.items = service.getItems(); 
+     
+    app.controller("friends",["$scope","$http","$q",Friends])
+     
+    function Friends($scope, $http, $q) {
+        $scope.show = true;
         
-        sl1.addItem = function(){
-            service.addItem(sl1.item,sl1.quantity)
+        let promiseList = [promise1()]
+
+        $scope.show && promiseList.push(promise2())
+
+        function callback() {
+            console.log("this is the callback called")
         }
-    }
-    function ShoppingList2(ShoppingListFactory){
-        let sl2 = this;
-        let service = ShoppingListFactory(2);
-        sl2.title = "Shooping List #2"
-        sl2.item = "";
-        sl2.quantity = "";
-        sl2.items = service.getItems();
-        
-        sl2.addItem = function(){
-            try{
-                service.addItem(sl2.item,sl2.quantity)
-            }catch(error){
-                sl2.error = error.message
-            }
+
+        function ff(callback) {
+            callback()
+        }
+        ff(callback)
+        $q
+            .all(promiseList)
+        // //     .then(function ([pr1, pr2]) {
+        // //    pr1 && console.log(pr1)
+        // //    pr2 && console.log(pr2)
             
+        // })
+
+        //runs everytime page loads
+        function promise1() {
+            const pr =  new Promise(function (res,rej) {
+                setTimeout(function () {
+                    res("now returning promise 1")
+                },2000)
+            })
+            pr.then(function (res) {
+                console.log(res)
+            })
+            .catch(function (er) {
+                console.log(er)
+            })
         }
+        //promise si returned conditionally on checkbox 'true'
+        function promise2() {
+            const pr =  new Promise(function (res,rej) {
+                setTimeout(function () {
+                    res("now returning promise 2")
+                },1000)
+            })
+            pr.then(function (res) {
+                console.log(res)
+            })
+            .catch(function (er) {
+                console.log(er)
+            })
+        }
+
     }
+    
 })()
